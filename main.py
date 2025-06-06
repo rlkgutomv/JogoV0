@@ -24,6 +24,7 @@ iron = pygame.image.load("Recursos/assets/Boneco.png")
 fundoStart = pygame.image.load("Recursos/assets/TelaStart.png")
 fundoJogo = pygame.image.load("Recursos/assets/FundoJogo.png")
 fundoDead = pygame.image.load("Recursos/assets/TelaDead.png")
+passaro = pygame.image.load("Recursos/passaro.png")
 missel = pygame.image.load("Recursos/assets/Meteoro.png")
 missileSound = pygame.mixer.Sound("Recursos/assets/missile.wav")
 explosaoSound = pygame.mixer.Sound("Recursos/assets/explosao.wav")
@@ -78,8 +79,8 @@ def jogar():
     pontos = 0
     larguraPersona = 100
     alturaPersona = 150
-    larguaMissel  = 200
-    alturaMissel  = 100
+    larguaMissel  = 150
+    alturaMissel  = 125
     dificuldade  = 30
     raio_base = 30
     bicho_x = random.randint(10, 900)
@@ -205,7 +206,7 @@ def jogar():
              bicho_vx *= -1
         if bicho_y < 0 or bicho_y > 650:
              bicho_vy *= -1
-        pygame.draw.circle(tela, (0, 150, 255), (bicho_x, bicho_y), 18)
+        tela.blit(passaro_img, (bicho_x, bicho_y))
 
         pygame.display.update()
         relogio.tick(60)
