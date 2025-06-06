@@ -7,6 +7,7 @@ from Recursos.funcoes import inicializarBancoDeDados
 from Recursos.funcoes import escreverDados
 import json
 import sys
+import math
 
 pygame.init()
 em_pausa = False
@@ -14,7 +15,7 @@ inicializarBancoDeDados()
 tamanho = (1000,700)
 relogio = pygame.time.Clock()
 tela = pygame.display.set_mode( tamanho ) 
-pygame.display.set_caption("Iron Man do Marcão")
+pygame.display.set_caption("Flintstones esquivo-esquivo")
 icone  = pygame.image.load("Recursos/assets/icone.jpg")
 pygame.display.set_icon(icone)
 branco = (255,255,255)
@@ -77,12 +78,21 @@ def jogar():
     pontos = 0
     larguraPersona = 100
     alturaPersona = 150
-    larguaMissel  = 250
-    alturaMissel  = 175
+    larguaMissel  = 200
+    alturaMissel  = 100
     dificuldade  = 30
+    raio_base = 30
+    bicho_x = random.randint(10, 900)
+    bicho_y = random.randint(10, 600)
+    bicho_vx = random.choice([-2, -1, 1, 2])
+    bicho_vy = random.choice([-2, -1, 1, 2])
+    tempo_direcao_bicho = pygame.time.get_ticks()
+
 
     texto = fonteMenu.render("Pontos: "+str(pontos), True, branco)
     tela.blit(texto, (15,15))
+    pausar = fonteMenu.render("Press Space to Pause Game. ", True, branco)
+    tela.blit(pausar, (15,35))
     instrucao = fonteMenu.render("Press Space to Pause Game", True, branco)
     tela.blit(instrucao, (750, 15))
 
@@ -134,6 +144,8 @@ def jogar():
         
         texto = fonteMenu.render("Pontos: "+str(pontos), True, branco)
         tela.blit(texto, (15,15))
+        pausar = fonteMenu.render("Press Space to Pause Game. ", True, branco)
+        tela.blit(pausar, (15,35))
         
         pixelsPersonaX = list(range(posicaoXPersona, posicaoXPersona+larguraPersona))
         pixelsPersonaY = list(range(posicaoYPersona, posicaoYPersona+alturaPersona))
@@ -172,9 +184,29 @@ def jogar():
 
                 if evento.type == pygame.KEYDOWN:
                     if evento.key == pygame.K_SPACE:
-                         em_pausa = False  
-                
-        
+                         em_pausa = False
+
+        tempo = pygame.time.get_ticks() / 1000  
+        raio_pulsante = int(raio_base + 10 * math.sin(tempo * 2))
+        pygame.draw.circle(tela, (255, 255, 0), (950, 50), raio_pulsante)  
+
+        # Atualizar movimento do bicho randômico
+        bicho_x += bicho_vx
+        bicho_y += bicho_vy
+
+# Mudar direção a cada 1.5 segundo
+        if pygame.time.get_ticks() - tempo_direcao_bicho > 1500:
+            bicho_vx = random.choice([-2, -1, 1, 2])
+            bicho_vy = random.choice([-2, -1, 1, 2])
+            tempo_direcao_bicho = pygame.time.get_ticks()
+
+# Limites de tela
+        if bicho_x < 0 or bicho_x > 950:
+             bicho_vx *= -1
+        if bicho_y < 0 or bicho_y > 650:
+             bicho_vy *= -1
+        pygame.draw.circle(tela, (0, 150, 255), (bicho_x, bicho_y), 18)
+
         pygame.display.update()
         relogio.tick(60)
 
