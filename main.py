@@ -32,6 +32,38 @@ fonteMenu = pygame.font.SysFont("comicsans",18)
 fonteMorte = pygame.font.SysFont("arial",120)
 pygame.mixer.music.load("Recursos/assets/ironsound.mp3")
 
+def tela_boas_vindas(nome):
+    cinza_claro = (230, 230, 230)
+    
+    while True:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif evento.type == pygame.MOUSEBUTTONUP:
+                if botao_iniciar.collidepoint(evento.pos):
+                    return  # Sai da tela e começa o jogo
+
+        tela.fill(cinza_claro)
+
+        # Texto com o nome do jogador
+        saudacao = fonteMenu.render(f"Bem-vindo, {nome}!", True, preto)
+        tela.blit(saudacao, (400, 180))
+
+        # Explicações simples
+        explicacao1 = fonteMenu.render("Use as setas para desviar dos mísseis.", True, preto)
+        explicacao2 = fonteMenu.render("Pressione ESPAÇO para pausar o jogo.", True, preto)
+        tela.blit(explicacao1, (320, 220))
+        tela.blit(explicacao2, (320, 250))
+
+        # Botão para iniciar o jogo
+        botao_iniciar = pygame.draw.rect(tela, (0, 150, 0), (400, 310, 200, 50), border_radius=10)
+        texto_botao = fonteMenu.render("Iniciar Jogo", True, branco)
+        tela.blit(texto_botao, (450, 325))
+
+        pygame.display.update()
+        relogio.tick(60)
+
 def jogar():
     largura_janela = 300
     altura_janela = 50
@@ -65,6 +97,8 @@ def jogar():
 
     # Inicia o loop da interface gráfica
     root.mainloop()
+    tela_boas_vindas(nome)
+
     
 
     posicaoXPersona = 500
