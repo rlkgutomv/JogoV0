@@ -3,8 +3,8 @@ import random
 import os
 import tkinter as tk
 from tkinter import messagebox
-from recursos.funcoes import inicializarBancoDeDados
-from recursos.funcoes import escreverDados
+from Recursos.funcoes import inicializarBancoDeDados
+from Recursos.funcoes import escreverDados
 import json
 import sys
 
@@ -15,20 +15,20 @@ tamanho = (1000,700)
 relogio = pygame.time.Clock()
 tela = pygame.display.set_mode( tamanho ) 
 pygame.display.set_caption("Iron Man do Marcão")
-icone  = pygame.image.load("assets/icone.png")
+icone  = pygame.image.load("Recursos/assets/icone.jpg")
 pygame.display.set_icon(icone)
 branco = (255,255,255)
 preto = (0, 0 ,0 )
-iron = pygame.image.load("assets/iron.png")
-fundoStart = pygame.image.load("assets/fundoStart.jpg")
-fundoJogo = pygame.image.load("assets/fundoJogo.png")
-fundoDead = pygame.image.load("assets/fundoDead.png")
-missel = pygame.image.load("assets/missile.png")
-missileSound = pygame.mixer.Sound("assets/missile.wav")
-explosaoSound = pygame.mixer.Sound("assets/explosao.wav")
+iron = pygame.image.load("Recursos/assets/Boneco.png")
+fundoStart = pygame.image.load("Recursos/assets/TelaStart.png")
+fundoJogo = pygame.image.load("Recursos/assets/FundoJogo.png")
+fundoDead = pygame.image.load("Recursos/assets/TelaDead.png")
+missel = pygame.image.load("Recursos/assets/Meteoro.png")
+missileSound = pygame.mixer.Sound("Recursos/assets/missile.wav")
+explosaoSound = pygame.mixer.Sound("Recursos/assets/explosao.wav")
 fonteMenu = pygame.font.SysFont("comicsans",18)
 fonteMorte = pygame.font.SysFont("arial",120)
-pygame.mixer.music.load("assets/ironsound.mp3")
+pygame.mixer.music.load("Recursos/assets/ironsound.mp3")
 
 def jogar():
     largura_janela = 300
@@ -65,20 +65,20 @@ def jogar():
     root.mainloop()
     
 
-    posicaoXPersona = 400
-    posicaoYPersona = 300
+    posicaoXPersona = 500
+    posicaoYPersona = 500
     movimentoXPersona  = 0
-    movimentoYPersona  = 0
+    #movimentoYPersona  = 0
     posicaoXMissel = 400
     posicaoYMissel = -240
     velocidadeMissel = 1
     pygame.mixer.Sound.play(missileSound)
     pygame.mixer.music.play(-1)
     pontos = 0
-    larguraPersona = 250
-    alturaPersona = 127
-    larguaMissel  = 50
-    alturaMissel  = 250
+    larguraPersona = 100
+    alturaPersona = 150
+    larguaMissel  = 250
+    alturaMissel  = 175
     dificuldade  = 30
 
     texto = fonteMenu.render("Pontos: "+str(pontos), True, branco)
@@ -101,22 +101,14 @@ def jogar():
                 movimentoXPersona = 0
             elif evento.type == pygame.KEYUP and evento.key == pygame.K_LEFT:
                 movimentoXPersona = 0
-            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_UP:
-                movimentoYPersona = -15
-            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_DOWN:
-                movimentoYPersona = 15
-            elif evento.type == pygame.KEYUP and evento.key == pygame.K_UP:
-                movimentoYPersona = 0
-            elif evento.type == pygame.KEYUP and evento.key == pygame.K_DOWN:
-                movimentoYPersona = 0
-                
+
         posicaoXPersona = posicaoXPersona + movimentoXPersona            
-        posicaoYPersona = posicaoYPersona + movimentoYPersona            
+               
         
-        if posicaoXPersona < 0 :
-            posicaoXPersona = 15
-        elif posicaoXPersona >550:
-            posicaoXPersona = 540
+        if posicaoXPersona < -40 :
+            posicaoXPersona = -30
+        elif posicaoXPersona > 900:
+            posicaoXPersona = 890
             
         if posicaoYPersona < 0 :
             posicaoYPersona = 15
@@ -258,7 +250,7 @@ def dead():
     listbox.pack(pady=20)
 
     # Adiciona o log das partidas no Listbox
-    log_partidas = open("base.atitus", "r").read()
+    log_partidas = open("log.dat", "r").read()
     log_partidas = json.loads(log_partidas)
     for chave in log_partidas:
         listbox.insert(tk.END, f"Pontos: {log_partidas[chave][0]} na data: {log_partidas[chave][1]} - Nickname: {chave}")  # Adiciona cada linha no Listbox
@@ -311,4 +303,3 @@ def dead():
 
 
 start()
-
