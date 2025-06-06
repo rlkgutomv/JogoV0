@@ -12,14 +12,14 @@ def aguarde(segundos):
 def inicializarBancoDeDados():
     # r - read, w - write, a - append
     try:
-        banco = open("base.atitus","r")
+        banco = open("log.dat","r")
     except:
         print("Banco de Dados Inexistente. Criando...")
-        banco = open("base.atitus","w")
+        banco = open("log.dat","w")
     
 def escreverDados(nome, pontos):
     # INI - inserindo no arquivo
-    banco = open("base.atitus","r")
+    banco = open("log.dat","r")
     dados = banco.read()
     banco.close()
     print("dados",type(dados))
@@ -31,7 +31,7 @@ def escreverDados(nome, pontos):
     data_br = datetime.now().strftime("%d/%m/%Y")
     dadosDict[nome] = (pontos, data_br)
     
-    banco = open("base.atitus","w")
+    banco = open("log.dat","w")
     banco.write(json.dumps(dadosDict))
     banco.close()
     
