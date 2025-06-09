@@ -25,7 +25,7 @@ fundoStart = pygame.image.load("Recursos/assets/TelaStart.png")
 fundoJogo = pygame.image.load("Recursos/assets/FundoJogo.png")
 fundoDead = pygame.image.load("Recursos/assets/TelaDead.png")
 passaro = pygame.image.load("Recursos/assets/passaro.png")
-missel = pygame.image.load("Recursos/assets/Meteoro.png")
+meteoro = pygame.image.load("Recursos/assets/Meteoro.png")
 missileSound = pygame.mixer.Sound("Recursos/assets/missile.wav")
 explosaoSound = pygame.mixer.Sound("Recursos/assets/explosao.wav")
 fonteMenu = pygame.font.SysFont("comicsans",18)
@@ -105,16 +105,16 @@ def jogar():
     posicaoYPersona = 500
     movimentoXPersona  = 0
     #movimentoYPersona  = 0
-    posicaoXMissel = 400
-    posicaoYMissel = -240
-    velocidadeMissel = 1
+    posicaoXmeteoro = 400
+    posicaoYmeteoro = -240
+    velocidademeteoro = 1
     pygame.mixer.Sound.play(missileSound)
     pygame.mixer.music.play(-1)
     pontos = 0
     larguraPersona = 100
     alturaPersona = 150
-    larguaMissel  = 150
-    alturaMissel  = 125
+    larguameteoro  = 150
+    alturameteoro  = 150
     dificuldade  = 30
     raio_base = 30
     bicho_x = random.randint(10, 900)
@@ -166,16 +166,16 @@ def jogar():
         #pygame.draw.circle(tela, preto, (posicaoXPersona,posicaoYPersona), 40, 0 )
         tela.blit( iron, (posicaoXPersona, posicaoYPersona) )
         #Joao paulolo
-        posicaoYMissel = posicaoYMissel + velocidadeMissel
-        if posicaoYMissel > 600:
-            posicaoYMissel = -240
+        posicaoYmeteoro = posicaoYmeteoro + velocidademeteoro
+        if posicaoYmeteoro > 600:
+            posicaoYmeteoro = -240
             pontos = pontos + 1
-            velocidadeMissel = velocidadeMissel + 1
-            posicaoXMissel = random.randint(0,800)
+            velocidademeteoro = velocidademeteoro + 1
+            posicaoXmeteoro = random.randint(0,800)
             pygame.mixer.Sound.play(missileSound)
             
             
-        tela.blit( missel, (posicaoXMissel, posicaoYMissel) )
+        tela.blit( meteoro, (posicaoXmeteoro, posicaoYmeteoro) )
         
         texto = fonteMenu.render("Pontos: "+str(pontos), True, branco)
         tela.blit(texto, (15,15))
@@ -184,13 +184,13 @@ def jogar():
         
         pixelsPersonaX = list(range(posicaoXPersona, posicaoXPersona+larguraPersona))
         pixelsPersonaY = list(range(posicaoYPersona, posicaoYPersona+alturaPersona))
-        pixelsMisselX = list(range(posicaoXMissel, posicaoXMissel + larguaMissel))
-        pixelsMisselY = list(range(posicaoYMissel, posicaoYMissel + alturaMissel))
+        pixelsmeteoroX = list(range(posicaoXmeteoro, posicaoXmeteoro + larguameteoro))
+        pixelsmeteoroY = list(range(posicaoYmeteoro, posicaoYmeteoro + alturameteoro))
         
         os.system("cls")
-        # print( len( list( set(pixelsMisselX).intersection(set(pixelsPersonaX))   ) )   )
-        if  len( list( set(pixelsMisselY).intersection(set(pixelsPersonaY))) ) > dificuldade:
-            if len( list( set(pixelsMisselX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
+        # print( len( list( set(pixelsmeteoroX).intersection(set(pixelsPersonaX))   ) )   )
+        if  len( list( set(pixelsmeteoroY).intersection(set(pixelsPersonaY))) ) > dificuldade:
+            if len( list( set(pixelsmeteoroX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
                 escreverDados(nome, pontos)
                 dead()
                 
