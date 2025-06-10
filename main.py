@@ -26,15 +26,16 @@ fundoStart = pygame.image.load("Recursos/assets/TelaStart.png")
 fundoJogo = pygame.image.load("Recursos/assets/FundoJogo.png")
 fundoDead = pygame.image.load("Recursos/assets/TelaDead.png")
 passaro = pygame.image.load("Recursos/assets/passaro.png")
-meteoro = pygame.image.load("Recursos/assets/Meteoro.png")
+meteoro = pygame.image.load("Recursos/assets/Meteoro.png")  
 missileSound = pygame.mixer.Sound("Recursos/assets/meteoro.wav")
 explosaoSound = pygame.mixer.Sound("Recursos/assets/explosao.wav")
 fonteMenu = pygame.font.SysFont("comicsans",18)
 fonteMorte = pygame.font.SysFont("arial",120)
 pygame.mixer.music.load("Recursos/assets/mscfundo.mp3")
+fundoBoasVindas = pygame.image.load("Recursos/assets/fundoBoasVindas.png")
 
 def tela_boas_vindas(nome):
-    cinza_claro = (230, 230, 230)
+    
     
     while True:
         for evento in pygame.event.get():
@@ -43,17 +44,17 @@ def tela_boas_vindas(nome):
                 sys.exit()
             elif evento.type == pygame.MOUSEBUTTONUP:
                 if botao_iniciar.collidepoint(evento.pos):
-                    return  # Sai da tela e começa o jogo
+                    return
 
-        tela.fill(cinza_claro)
+        tela.blit(fundoBoasVindas, (0, 0))
 
         # Texto com o nome do jogador
-        saudacao = fonteMenu.render(f"Bem-vindo, {nome}!", True, preto)
+        saudacao = fonteMenu.render(f"Bem-vindo, {nome}!", True, branco)
         tela.blit(saudacao, (400, 180))
 
         # Explicações simples
-        explicacao1 = fonteMenu.render("Use as setas para desviar dos mísseis.", True, preto)
-        explicacao2 = fonteMenu.render("Pressione ESPAÇO para pausar o jogo.", True, preto)
+        explicacao1 = fonteMenu.render("Use as setas para desviar dos mísseis.", True, branco)
+        explicacao2 = fonteMenu.render("Pressione ESPAÇO para pausar o jogo.", True, branco)
         tela.blit(explicacao1, (320, 220))
         tela.blit(explicacao2, (320, 250))
 
@@ -116,10 +117,10 @@ def jogar():
     pygame.mixer.Sound.play(missileSound)
     pygame.mixer.music.play(-1)
     pontos = 0
-    larguraPersona = 100
-    alturaPersona = 150
-    larguameteoro  = 150
-    alturameteoro  = 150
+    larguraPersona = 63
+    alturaPersona = 153
+    larguameteoro  = 73
+    alturameteoro  = 113
     dificuldade  = 30
     raio_base = 30
     bicho_x = random.randint(10, 900)
@@ -228,7 +229,7 @@ def jogar():
 
         tempo = pygame.time.get_ticks() / 1000  
         raio_pulsante = int(raio_base + 10 * math.sin(tempo * 2))
-        pygame.draw.circle(tela, (255, 255, 0), (950, 50), raio_pulsante)  
+        pygame.draw.circle(tela, (255, 0, 0), (950, 50), raio_pulsante) 
 
         # Atualizar movimento do bicho randômico
         bicho_x += bicho_vx
