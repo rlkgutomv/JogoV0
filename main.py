@@ -210,7 +210,7 @@ def jogar():
             overlay.fill((0, 0, 0, 200))  # Tela bem escura
             tela.blit(overlay, (0, 0))
 
-            texto_pause = pygame.font.SysFont("arial", 50).render("Jogo pausado", True, (200, 0, 0))  # Texto vermelho
+            texto_pause = pygame.font.SysFont("arial", 50).render("Pausado", True, (255, 255, 255))  # Texto vermelho
             tamanho = tela.get_size()
             texto_rect = texto_pause.get_rect(center=(tamanho[0] // 2, tamanho[1] // 2))
             tela.blit(texto_pause, texto_rect)
