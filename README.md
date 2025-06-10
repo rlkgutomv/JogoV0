@@ -1,8 +1,8 @@
 dev: Gustavo Marcante Vazzoler
 ra: 1138009
 
-testador:
-ra:
+testador:Pedro Henrique Renosto
+ra: 1138042
 
 Descrição:
 
