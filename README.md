@@ -10,5 +10,3 @@ random
 tkinter
 json
 math
-pyttsx3 
-speech_recognition

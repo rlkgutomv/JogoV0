@@ -3,11 +3,12 @@ import random
 import os
 import tkinter as tk
 from tkinter import messagebox
-from Recursos.funcoes import inicializarBancoDeDados
-from Recursos.funcoes import escreverDados
+from recursos.funcoes import inicializarBancoDeDados
+from recursos.funcoes import escreverDados
 import json
 import sys
 import math
+import pyttsx3
 
 pygame.init()
 em_pausa = False
@@ -26,11 +27,11 @@ fundoJogo = pygame.image.load("Recursos/assets/FundoJogo.png")
 fundoDead = pygame.image.load("Recursos/assets/TelaDead.png")
 passaro = pygame.image.load("Recursos/assets/passaro.png")
 meteoro = pygame.image.load("Recursos/assets/Meteoro.png")
-missileSound = pygame.mixer.Sound("Recursos/assets/missile.wav")
+missileSound = pygame.mixer.Sound("Recursos/assets/meteoro.wav")
 explosaoSound = pygame.mixer.Sound("Recursos/assets/explosao.wav")
 fonteMenu = pygame.font.SysFont("comicsans",18)
 fonteMorte = pygame.font.SysFont("arial",120)
-pygame.mixer.music.load("Recursos/assets/ironsound.mp3")
+pygame.mixer.music.load("Recursos/assets/mscfundo.mp3")
 
 def tela_boas_vindas(nome):
     cinza_claro = (230, 230, 230)
@@ -77,6 +78,10 @@ def jogar():
             root.destroy()  # Fecha a janela após a entrada válida
 
     # Criação da janela principal
+    engine = pyttsx3.init()
+    engine.say("Digite seu nick")
+    engine.runAndWait()
+
     root = tk.Tk()
     # Obter as dimensões da tela
     largura_tela = root.winfo_screenwidth()
