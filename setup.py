@@ -1,13 +1,13 @@
 # pip install cx_freeze
 import cx_Freeze
 executaveis = [ 
-               cx_Freeze.Executable(script="feito.py", icon="assets/icone.ico") ]
+               cx_Freeze.Executable(script="main.py", icon="recursos/assets/icone.ico") ]
 cx_Freeze.setup(
-    name = "Iron Man",
+    name = "Fred esquivo-esquivo",
     options={
         "build_exe":{
             "packages":["pygame"],
-            "include_files":["assets"]
+            "include_files":["recursos/assets"]
         }
     }, executables = executaveis
 )
